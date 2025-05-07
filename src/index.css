@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font Size Variations */
+:root[data-font-size="small"] {
+  font-size: 14px;
+}
+
+:root[data-font-size="medium"] {
+  font-size: 16px;
+}
+
+:root[data-font-size="large"] {
+  font-size: 18px;
+}
+
+:root[data-font-size="x-large"] {
+  font-size: 20px;
+}
+
+/* Contrast Modes */
+:root[data-contrast="normal"] {
+  --contrast-bg: theme('colors.white');
+  --contrast-text: theme('colors.gray.900');
+  --contrast-border: theme('colors.gray.200');
+}
+
+:root[data-contrast="high"] {
+  --contrast-bg: theme('colors.white');
+  --contrast-text: theme('colors.black');
+  --contrast-border: theme('colors.gray.400');
+}
+
+:root[data-contrast="ultra"] {
+  --contrast-bg: theme('colors.black');
+  --contrast-text: theme('colors.white');
+  --contrast-border: theme('colors.white');
+}
+
+/* Apply contrast variables */
+.dark:root[data-contrast="normal"] {
+  --contrast-bg: theme('colors.gray.900');
+  --contrast-text: theme('colors.gray.100');
+  --contrast-border: theme('colors.gray.700');
+}
+
+.dark:root[data-contrast="high"] {
+  --contrast-bg: theme('colors.black');
+  --contrast-text: theme('colors.white');
+  --contrast-border: theme('colors.gray.300');
+}
+
+.dark:root[data-contrast="ultra"] {
+  --contrast-bg: theme('colors.white');
+  --contrast-text: theme('colors.black');
+  --contrast-border: theme('colors.black');
+}
+
+/* Apply contrast styles */
+body {
+  background-color: var(--contrast-bg);
+  color: var(--contrast-text);
+}
+
+/* Enhanced focus indicators */
+.enhanced-focus :focus-visible {
+  outline: 3px solid theme('colors.blue.500');
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+.reduce-motion * {
+  transition: none !important;
+  animation: none !important;
+}

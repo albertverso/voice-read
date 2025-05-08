@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/Button';
-import { Clipboard, Copy, X } from 'lucide-react';
+import { Clipboard, Copy, FileAudio, X } from 'lucide-react';
 
+// Tipagem das props
 interface TextInputProps {
   value: string;
-  onChange: (text: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onClear: () => void;
   placeholder?: string;
   maxLength?: number;
+  click?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
@@ -16,6 +18,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   onClear,
   placeholder = 'Enter or paste text to be read aloud...',
   maxLength = 5000,
+  click = () => {},
 }) => {
   const [charCount, setCharCount] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -28,7 +31,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
     if (maxLength && newText.length > maxLength) return;
-    onChange(newText);
+    onChange(e);
   };
 
   const handlePaste = async () => {
@@ -36,7 +39,7 @@ export const TextInput: React.FC<TextInputProps> = ({
       const clipboardText = await navigator.clipboard.readText();
       if (clipboardText) {
         const truncatedText = maxLength ? clipboardText.slice(0, maxLength) : clipboardText;
-        onChange(truncatedText);
+        onChange({ target: { value: truncatedText } } as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>);
       }
     } catch (err) {
       console.error('Failed to read clipboard contents: ', err);
@@ -123,6 +126,16 @@ export const TextInput: React.FC<TextInputProps> = ({
           disabled={!value}
         >
           <Copy size={16} /> {copySuccess ? 'Copied!' : 'Copy Text'}
+        </Button>
+
+        <Button
+          onClick={click}
+          variant="outline"
+          size="sm"
+          className="flex items-center gap-1 bg-white text-black w-48"
+          disabled={!value}
+        >
+          <FileAudio size={16} /> Gerar audio!
         </Button>
       </div>
     </div>

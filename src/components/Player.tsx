@@ -47,7 +47,7 @@ export const Player: React.FC<PlayerProps> = ({ text }) => {
       setOptions({ volume: previousVolume });
       setIsMuted(false);
     } else {
-      setPreviousVolume(currentOptions.volume);
+      setPreviousVolume(currentOptions.volume!);
       setOptions({ volume: 0 });
       setIsMuted(true);
     }

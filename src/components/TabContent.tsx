@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { FileUpload } from './FileUpload';
 import { LinkExtractor } from './LinkExtractor';
 import { TextInput } from './TextInput';
-import { Player } from './Player';
+// import { Player } from './Player';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/Tabs';
+import { gerarAudio } from "../services/ttsService";
 
 export const TabContent: React.FC = () => {
   const [text, setText] = useState('');
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleTextChange = (newText: string) => {
     setText(newText);
@@ -14,6 +17,20 @@ export const TabContent: React.FC = () => {
 
   const clearText = () => {
     setText('');
+  };
+
+  const handleGerarAudio = async () => {
+    setLoading(true);
+    try {
+      const blob = await gerarAudio(text);
+      const url = URL.createObjectURL(blob);
+      setAudioUrl(url);
+    } catch (error) {
+      alert("Erro ao gerar áudio");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,8 +47,9 @@ export const TabContent: React.FC = () => {
             <TabsContent value="text" className="mt-4">
               <TextInput
                 value={text}
-                onChange={handleTextChange}
+                onChange={(e) => setText(e.target.value)}
                 onClear={clearText}
+                click={handleGerarAudio}
               />
             </TabsContent>
             
@@ -61,8 +79,23 @@ export const TabContent: React.FC = () => {
         <div>
           <div className="sticky top-24">
             <h2 className="text-xl font-semibold mb-4">Text-to-Speech Player</h2>
-            <Player text={text} />
-            
+            {/* <Player text={text} /> */}
+            <div className="p-4 max-w-xl mx-auto">
+              {/* <button
+                onClick={handleGerarAudio}
+                className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+                disabled={loading || !texto}
+              >
+                {loading ? "Gerando áudio..." : "Ouvir"}
+              </button> */}
+              <div
+                className={`mt-4 w-full ${!audioUrl ? 'pointer-events-none opacity-50' : ''}`}
+              >
+                <audio controls src={audioUrl || ""} className="w-full" />
+              </div>
+              
+            </div>
+  
             <div className="mt-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
               <h3 className="text-lg font-medium mb-3">Keyboard Shortcuts</h3>
               <ul className="space-y-2 text-sm">

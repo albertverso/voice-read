@@ -37,11 +37,11 @@ function App() {
         <Header />
         
         <main id="main" className="pb-16">
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-4 py-4">
             <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
               Convert Text to Speech
             </h1>
-            <p className="text-xl text-center max-w-3xl mx-auto mb-12 text-gray-600 dark:text-gray-300">
+            <p className="text-xl text-center max-w-3xl mx-auto mb-2 text-gray-600 dark:text-gray-300">
               An accessible text-to-speech tool designed for people with visual impairments.
               Enter text, upload documents, or extract from URLs and listen to them read aloud.
             </p>

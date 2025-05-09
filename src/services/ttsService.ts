@@ -4,7 +4,7 @@ export async function gerarAudio(texto: string): Promise<Blob> {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ texto }),
+      body: JSON.stringify({ "text": texto }),
     });
   
     if (!response.ok) {

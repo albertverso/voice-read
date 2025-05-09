@@ -89,7 +89,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           value={value}
           onChange={handleTextChange}
           placeholder={placeholder}
-          className="w-full min-h-[200px] p-4 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          className="w-full min-h-[200px] resize-none p-4 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           aria-describedby="text-input-instructions"
         />
         
@@ -126,16 +126,6 @@ export const TextInput: React.FC<TextInputProps> = ({
           disabled={!value}
         >
           <Copy size={16} /> {copySuccess ? 'Copied!' : 'Copy Text'}
-        </Button>
-
-        <Button
-          onClick={click}
-          variant="outline"
-          size="sm"
-          className="flex items-center gap-1 bg-white text-black w-48"
-          disabled={!value}
-        >
-          <FileAudio size={16} /> Gerar audio!
         </Button>
       </div>
     </div>

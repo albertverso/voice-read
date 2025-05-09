@@ -5,6 +5,9 @@ import { TextInput } from './TextInput';
 // import { Player } from './Player';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/Tabs';
 import { gerarAudio } from "../services/ttsService";
+import AutoTextarea from './ui/AutoTextarea';
+import { Button } from './ui/Button';
+import { FileAudio, LucideCircleDashed } from 'lucide-react';
 
 export const TabContent: React.FC = () => {
   const [text, setText] = useState('');
@@ -34,7 +37,7 @@ export const TabContent: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 pb-4">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <Tabs defaultValue="text" className="mb-8">
@@ -65,66 +68,82 @@ export const TabContent: React.FC = () => {
           <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 mb-6">
             <h2 className="text-lg font-medium mb-4">Text Preview</h2>
             {text ? (
-              <div className="max-h-[400px] overflow-y-auto">
-                <p className="whitespace-pre-line">{text}</p>
-              </div>
+            <div className="relative">
+              <AutoTextarea text={text} setText={setText} />
+            </div>
             ) : (
               <p className="text-gray-500 dark:text-gray-400 italic">
                 No text entered yet. Type directly, upload a file, or extract from a URL.
               </p>
             )}
           </div>
+          <Button
+            onClick={handleGerarAudio}
+            variant="classic"
+            size="sm"
+            className="flex items-center gap-1 bg-black text-white w-48 dark:bg-white dark:text-black"
+            disabled={!text}
+          >
+            {loading ? 
+            <div className='flex flex-row gap-2 items-center justify-center'>
+              <LucideCircleDashed size={16} className="animate-spin w-full" /> 
+              <p >
+                Carregando...
+              </p> 
+            </div>
+            :
+            <div className='flex flex-row gap-2 items-center justify-center'>
+              <FileAudio size={16} /> 
+              <p>
+                Gerar audio
+              </p>
+            </div>
+            } 
+          </Button>
         </div>
         
         <div>
-          <div className="sticky top-24">
-            <h2 className="text-xl font-semibold mb-4">Text-to-Speech Player</h2>
-            {/* <Player text={text} /> */}
-            <div className="p-4 max-w-xl mx-auto">
-              {/* <button
-                onClick={handleGerarAudio}
-                className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
-                disabled={loading || !texto}
-              >
-                {loading ? "Gerando áudio..." : "Ouvir"}
-              </button> */}
-              <div
-                className={`mt-4 w-full ${!audioUrl ? 'pointer-events-none opacity-50' : ''}`}
-              >
-                <audio controls src={audioUrl || ""} className="w-full" />
+            <div className="sticky top-24">
+              <h2 className="text-xl font-semibold mb-4">Text-to-Speech Player</h2>
+              {/* <Player text={text} /> */}
+              <div className="p-4 max-w-xl mx-auto">
+                <div
+                  className={`mt-4 w-full ${!audioUrl ? 'pointer-events-none opacity-50' : ''}`}
+                >
+                  <audio controls src={audioUrl || ""} className="w-full" />
+                </div>
+                
               </div>
-              
-            </div>
-  
-            <div className="mt-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
-              <h3 className="text-lg font-medium mb-3">Keyboard Shortcuts</h3>
-              <ul className="space-y-2 text-sm">
-                <li className="flex justify-between">
-                  <span>Play/Pause</span>
-                  <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">Space</kbd>
-                </li>
-                <li className="flex justify-between">
-                  <span>Stop</span>
-                  <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">Esc</kbd>
-                </li>
-                <li className="flex justify-between">
-                  <span>Volume Up</span>
-                  <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">↑</kbd>
-                </li>
-                <li className="flex justify-between">
-                  <span>Volume Down</span>
-                  <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">↓</kbd>
-                </li>
-                <li className="flex justify-between">
-                  <span>Speed Up</span>
-                  <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">→</kbd>
-                </li>
-                <li className="flex justify-between">
-                  <span>Speed Down</span>
-                  <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">←</kbd>
-                </li>
-              </ul>
-            </div>
+    
+              <div className="mt-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                <h3 className="text-lg font-medium mb-3">Keyboard Shortcuts</h3>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex justify-between">
+                    <span>Play/Pause</span>
+                    <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">Space</kbd>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Stop</span>
+                    <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">Esc</kbd>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Volume Up</span>
+                    <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">↑</kbd>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Volume Down</span>
+                    <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">↓</kbd>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Speed Up</span>
+                    <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">→</kbd>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Speed Down</span>
+                    <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">←</kbd>
+                  </li>
+                </ul>
+              </div>
           </div>
         </div>
       </div>

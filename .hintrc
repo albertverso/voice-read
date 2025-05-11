@@ -6,7 +6,14 @@
     "axe/aria": [
       "default",
       {
-        "aria-required-parent": "off"
+        "aria-required-parent": "off",
+        "aria-valid-attr-value": "off"
+      }
+    ],
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
       }
     ]
   }

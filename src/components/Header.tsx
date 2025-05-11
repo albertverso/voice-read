@@ -38,19 +38,19 @@ export const Header: React.FC = () => {
         </div>
         
         <nav className={`${menuOpen ? 'flex' : 'hidden'} md:flex absolute md:static top-16 left-0 right-0 flex-col md:flex-row items-center gap-4 p-4 md:p-0 bg-white dark:bg-gray-900 md:bg-transparent shadow-md md:shadow-none`}>
-          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Home</a>
-          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>How to Use</a>
-          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>About</a>
-          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Contact</a>
+          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Inicio</a>
+          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Como usar</a>
+          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Sobre</a>
+          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Contato</a>
         </nav>
         
         <div className="flex items-center space-x-3">
           <button
-            onClick={() => setThemeMode(settings.themeMode === 'dark' ? 'light' : 'dark')}
+            onClick={() => setThemeMode(settings.themeMode === 'escuro' ? 'claro' : 'escuro')}
             className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-            aria-label={settings.themeMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={settings.themeMode === 'escuro' ? 'Switch to light mode' : 'Switch to dark mode'}
           >
-            {settings.themeMode === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            {settings.themeMode === 'escuro' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           
           <button
@@ -74,7 +74,7 @@ export const Header: React.FC = () => {
           aria-label="Accessibility settings"
         >
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Accessibility Settings</h2>
+            <h2 className="text-xl font-semibold">Configuração de acessibilidades</h2>
             <button
               onClick={() => setSettingsOpen(false)}
               className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -86,13 +86,13 @@ export const Header: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-medium mb-3">Display</h3>
+              <h3 className="text-lg font-medium mb-3">Tela</h3>
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Font Size</label>
+                  <label className="block text-sm font-medium mb-2">Tamanho da fonte</label>
                   <div className="flex space-x-2">
-                    {(['small', 'medium', 'large', 'x-large'] as const).map((size) => (
+                    {(['pequeno', 'medio', 'grande', 'extra-grande'] as const).map((size) => (
                       <button
                         key={size}
                         onClick={() => setFontSize(size)}
@@ -110,9 +110,9 @@ export const Header: React.FC = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Contrast Mode</label>
+                  <label className="block text-sm font-medium mb-2">Modo de contraste</label>
                   <div className="flex space-x-2">
-                    {(['normal', 'high', 'ultra'] as const).map((mode) => (
+                    {(['normal', 'grande', 'extra-grande'] as const).map((mode) => (
                       <button
                         key={mode}
                         onClick={() => setContrastMode(mode)}
@@ -130,9 +130,9 @@ export const Header: React.FC = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Theme</label>
+                  <label className="block text-sm font-medium mb-2">Tema</label>
                   <div className="flex space-x-2">
-                    {(['light', 'dark', 'system'] as const).map((theme) => (
+                    {(['claro', 'escuro', 'sistema'] as const).map((theme) => (
                       <button
                         key={theme}
                         onClick={() => setThemeMode(theme)}
@@ -152,11 +152,11 @@ export const Header: React.FC = () => {
             </div>
             
             <div>
-              <h3 className="text-lg font-medium mb-3">Motion & Reading</h3>
+              <h3 className="text-lg font-medium mb-3">Movimento e leitura</h3>
               
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium">Reduce Motion</label>
+                  <label className="text-sm font-medium">Reduzir movimento</label>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -169,7 +169,7 @@ export const Header: React.FC = () => {
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium">Enhanced Focus Indicators</label>
+                  <label className="text-sm font-medium">Indicadores de foco aprimorados</label>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -183,7 +183,7 @@ export const Header: React.FC = () => {
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Line Spacing: {settings.lineSpacing}%
+                    Espaço entre as linhas : {settings.lineSpacing}%
                   </label>
                   <input
                     type="range"
@@ -205,12 +205,12 @@ export const Header: React.FC = () => {
               onClick={resetToDefaults}
               className="mr-2"
             >
-              Reset to Defaults
+              Restaurar
             </Button>
             <Button
               onClick={() => setSettingsOpen(false)}
             >
-              Save Changes
+              Salvar mudanças
             </Button>
           </div>
         </div>

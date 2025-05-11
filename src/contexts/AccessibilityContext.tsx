@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type FontSize = 'small' | 'medium' | 'large' | 'x-large';
-type ContrastMode = 'normal' | 'high' | 'ultra';
-type ThemeMode = 'light' | 'dark' | 'system';
+type FontSize = 'pequeno' | 'medio' | 'grande' | 'extra-grande'
+type ContrastMode = 'normal' | 'grande' | 'extra-grande';
+type ThemeMode = 'claro' | 'escuro' | 'sistema';
 
 interface AccessibilityState {
   fontSize: FontSize;
@@ -25,9 +25,9 @@ interface AccessibilityContextType {
 }
 
 const defaultSettings: AccessibilityState = {
-  fontSize: 'medium',
+  fontSize: 'medio',
   contrastMode: 'normal',
-  themeMode: 'system',
+  themeMode: 'sistema',
   reducedMotion: false,
   lineSpacing: 150,
   focusIndicatorsEnhanced: true,
@@ -67,7 +67,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     document.body.style.lineHeight = `${settings.lineSpacing}%`;
     
     // Handle system preference for dark mode if set to 'system'
-    if (settings.themeMode === 'system') {
+    if (settings.themeMode === 'sistema') {
       const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       const updateTheme = (e: MediaQueryListEvent | MediaQueryList) => {
         document.documentElement.classList.toggle('dark', e.matches);
@@ -78,7 +78,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       
       return () => darkModeMediaQuery.removeEventListener('change', updateTheme);
     } else {
-      document.documentElement.classList.toggle('dark', settings.themeMode === 'dark');
+      document.documentElement.classList.toggle('dark', settings.themeMode === 'escuro');
     }
   }, [settings]);
 

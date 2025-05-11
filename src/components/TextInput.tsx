@@ -16,7 +16,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   value,
   onChange,
   onClear,
-  placeholder = 'Enter or paste text to be read aloud...',
+  placeholder = 'Insira ou cole o texto para ser lido em voz alta...',
   maxLength = 5000,
   click = () => {},
 }) => {
@@ -69,7 +69,7 @@ export const TextInput: React.FC<TextInputProps> = ({
     <div className="w-full">
       <div className="mb-2 flex justify-between items-center">
         <label htmlFor="text-input" className="text-sm font-medium">
-          Text to Read
+          Texto para fazer leitura
         </label>
         <span 
           className={`text-xs ${
@@ -78,7 +78,7 @@ export const TextInput: React.FC<TextInputProps> = ({
               : 'text-gray-500 dark:text-gray-400'
           }`}
         >
-          {charCount}/{maxLength} characters
+          {charCount}/{maxLength} caracteres
         </span>
       </div>
       
@@ -105,7 +105,7 @@ export const TextInput: React.FC<TextInputProps> = ({
       </div>
       
       <p id="text-input-instructions" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-        Type or paste text that you want to be read aloud. You can also upload a file or extract text from a URL.
+        Digite ou cole o texto que deseja que seja lido em voz alta. Você também pode enviar um arquivo ou extrair o texto de uma URL.
       </p>
       
       <div className="mt-4 flex flex-wrap gap-2">
@@ -115,7 +115,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           size="sm"
           className="flex items-center gap-1"
         >
-          <Clipboard size={16} /> Paste from Clipboard
+          <Clipboard size={16} /> Colar da área de transferência
         </Button>
         
         <Button
@@ -125,7 +125,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           className="flex items-center gap-1"
           disabled={!value}
         >
-          <Copy size={16} /> {copySuccess ? 'Copied!' : 'Copy Text'}
+          <Copy size={16} /> {copySuccess ? 'Copiado!' : 'Copiar Texto'}
         </Button>
       </div>
     </div>

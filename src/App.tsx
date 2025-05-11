@@ -39,11 +39,11 @@ function App() {
         <main id="main" className="pb-16">
           <div className="container mx-auto px-4 py-4">
             <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
-              Convert Text to Speech
+              Converter texto em fala
             </h1>
             <p className="text-xl text-center max-w-3xl mx-auto mb-2 text-gray-600 dark:text-gray-300">
-              An accessible text-to-speech tool designed for people with visual impairments.
-              Enter text, upload documents, or extract from URLs and listen to them read aloud.
+              Uma ferramenta acessível de conversão de texto em voz, projetada para pessoas com dificuldade de leitura ou deficiência visual.
+              Insira texto, carregue imagens ou extraia de URLs e ouça a leitura em voz alta..
             </p>
           </div>
           
@@ -54,13 +54,13 @@ function App() {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-600 dark:text-gray-300 mb-4 md:mb-0">
-                &copy; {new Date().getFullYear()} VoiceRead - Accessible Text-to-Speech
+                &copy; {new Date().getFullYear()} VoiceRead - Conversão de texto em fala acessível
               </p>
               <nav className="flex flex-wrap gap-6">
-                <a href="#" className="text-primary hover:underline">Accessibility Statement</a>
-                <a href="#" className="text-primary hover:underline">Privacy Policy</a>
-                <a href="#" className="text-primary hover:underline">Terms of Service</a>
-                <a href="#" className="text-primary hover:underline">Contact</a>
+                <a href="#" className="text-primary hover:underline">Declaração de Acessibilidade</a>
+                <a href="#" className="text-primary hover:underline">Política de Privacidade</a>
+                <a href="#" className="text-primary hover:underline">Termos de Serviço</a>
+                <a href="#" className="text-primary hover:underline">Contato</a>
               </nav>
             </div>
           </div>

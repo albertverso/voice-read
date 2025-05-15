@@ -1,5 +1,7 @@
+import { getApiUrl } from "./apiService";
+
 export async function gerarAudio(texto: string): Promise<Blob> {
-    const response = await fetch("https://backend-gerador-texto-voz.onrender.com/api/tts", {
+    const response = await fetch(`${getApiUrl}/api/tts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

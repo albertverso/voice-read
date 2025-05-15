@@ -1,3 +1,5 @@
+import { getApiUrl } from "./apiService";
+
 interface ApiResponse {
   [x: string]: any;
   status: number;
@@ -9,7 +11,7 @@ export const sendImage = async (file: File): Promise<ApiResponse> => {
   const formData = new FormData();
   formData.append('image', file);
 
-  const response = await fetch(`https://backend-gerador-texto-voz.onrender.com/api/gemini`, {
+  const response = await fetch(`${getApiUrl}/api/gemini`, {
     method: 'POST',
     body: formData,
   });

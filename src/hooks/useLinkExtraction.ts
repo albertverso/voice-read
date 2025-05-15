@@ -2,13 +2,13 @@ import { useState, useCallback } from 'react';
 
 export function useLinkExtraction() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [errorExtract, setExtractError] = useState<string | null>(null);
   const [extractedText, setExtractedText] = useState<string | null>(null);
   const [url, setUrl] = useState<string>('');
 
   const extractTextFromLink = useCallback(async (linkUrl: string) => {
     setIsLoading(true);
-    setError(null);
+    setExtractError(null);
     setUrl(linkUrl);
     
     try {
@@ -44,7 +44,7 @@ For a production application, the extraction would handle various HTML structure
       
       setExtractedText(simulatedText);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to extract text from URL');
+      setExtractError(err instanceof Error ? err.message : 'Failed to extract text from URL');
       setExtractedText(null);
     } finally {
       setIsLoading(false);
@@ -53,7 +53,7 @@ For a production application, the extraction would handle various HTML structure
 
   const reset = useCallback(() => {
     setExtractedText(null);
-    setError(null);
+    setExtractError(null);
     setIsLoading(false);
     setUrl('');
   }, []);
@@ -61,7 +61,7 @@ For a production application, the extraction would handle various HTML structure
   return {
     extractTextFromLink,
     isLoading,
-    error,
+    errorExtract,
     extractedText,
     url,
     reset

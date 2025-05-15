@@ -10,6 +10,7 @@ import AutoTextarea from './ui/AutoTextarea';
 import { Button } from './ui/Button';
 import { FileAudio, LucideCircleDashed, Volume2 } from 'lucide-react';
 import { sendImage } from '../services/geminiService';
+import { extractTextFromUrl } from '../services/extractUrlService';
 
 export const TabContent: React.FC = () => {
   const [text, setText] = useState('');
@@ -59,6 +60,16 @@ export const TabContent: React.FC = () => {
     }
   };
 
+  const handleExtractText = async (url: string) => {
+    try {
+      const result = await extractTextFromUrl(url);
+      const texto = `Titulo: ${result.title} \nConteudo: ${result.text}`
+      setText(texto);
+    } catch (err: any) {
+      setError(err.message || 'Erro ao extrair conteúdo.');
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 pb-4">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -88,7 +99,11 @@ export const TabContent: React.FC = () => {
             </TabsContent>
             
             <TabsContent value="url" className="mt-4">
-              <LinkExtractor onTextExtracted={handleTextChange} />
+              <LinkExtractor 
+                onTextExtracted={(text) => console.log('Texto confirmado:', text)}
+                extractedText={text}
+                onExtractUrl={handleExtractText}
+              />
             </TabsContent>
           </Tabs>
           
@@ -100,7 +115,7 @@ export const TabContent: React.FC = () => {
             </div>
             ) : (
               <p className="text-gray-500 dark:text-gray-400 italic">
-                Nenhum texto inserido ainda. Digite diretamente, carregue um imagem ou extraia de uma URL.
+                Nenhum texto inserido ainda. Digite diretamente, carregue uma imagem ou extraia de uma URL.
               </p>
             )}
           </div>

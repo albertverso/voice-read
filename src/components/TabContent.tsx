@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FileUpload } from './FileUpload';
 import { ImageUpload } from './ImageUpload';
 import { LinkExtractor } from './LinkExtractor';
 import { TextInput } from './TextInput';
@@ -8,22 +7,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/Tabs';
 import { gerarAudio } from "../services/ttsService";
 import AutoTextarea from './ui/AutoTextarea';
 import { Button } from './ui/Button';
-import { FileAudio, LucideCircleDashed, Volume2 } from 'lucide-react';
+import { FileAudio, LucideCircleDashed } from 'lucide-react';
 import { sendImage } from '../services/geminiService';
 import { extractTextFromUrl } from '../services/extractUrlService';
+import 'react-h5-audio-player/lib/styles.css';
+import AudioPlayer from 'react-h5-audio-player';
+import { CustomAudioPlayer } from './ui/CustomAudioPlayer';
+
 
 export const TabContent: React.FC = () => {
   const [text, setText] = useState('');
+  const [textUrl, setTextUrl] = useState('');
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  
-  const handleTextChange = (newText: string) => {
-    setText(newText);
-  };
-  
   const clearText = () => {
     setText('');
   };
@@ -64,7 +63,7 @@ export const TabContent: React.FC = () => {
     try {
       const result = await extractTextFromUrl(url);
       const texto = `Titulo: ${result.title} \nConteudo: ${result.text}`
-      setText(texto);
+      setTextUrl(texto);
     } catch (err: any) {
       setError(err.message || 'Erro ao extrair conteúdo.');
     }
@@ -100,8 +99,8 @@ export const TabContent: React.FC = () => {
             
             <TabsContent value="url" className="mt-4">
               <LinkExtractor 
-                onTextExtracted={(text) => console.log('Texto confirmado:', text)}
-                extractedText={text}
+                onTextExtracted={() => setText(textUrl)}
+                extractedText={textUrl}
                 onExtractUrl={handleExtractText}
               />
             </TabsContent>
@@ -119,45 +118,47 @@ export const TabContent: React.FC = () => {
               </p>
             )}
           </div>
-          <Button
-            onClick={handleGerarAudio}
-            variant="classic"
-            size="sm"
-            className="flex items-center gap-1 bg-black text-white w-48 dark:bg-white dark:text-black"
-            disabled={!text}
-          >
-            {loading ? 
-            <div className='flex flex-row gap-2 items-center justify-center'>
-              <LucideCircleDashed size={16} className="animate-spin w-full" /> 
-              <p >
-                Carregando...
-              </p> 
-            </div>
-            :
-            <div className='flex flex-row gap-2 items-center justify-center'>
-              <FileAudio size={16} /> 
-              <p>
-                Gerar audio
-              </p>
-            </div>
-            } 
-          </Button>
         </div>
         
         <div>
             <div className="sticky top-24">
               <h2 className="text-xl font-semibold mb-4">Reprodutor de texto para fala</h2>
               {/* <Player text={text} /> */}
-              <div className="p-4 max-w-xl mx-auto">
+              <div className="max-w-xl mx-auto">
                 <div
                   className={`mt-4 w-full ${!audioUrl ? 'pointer-events-none opacity-50' : ''}`}
                 >
-                  <audio controls src={audioUrl || ""} className="w-full" />
+                  {/* <audio controls src={audioUrl || ""} className="w-full" /> */}
+                  <CustomAudioPlayer audioUrl={audioUrl || ""} />
+
                 </div>
-                
               </div>
-    
-              <div className="mt-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+              <div className='flex items-center justify-center pt-4'>
+                <Button
+                  onClick={handleGerarAudio}
+                  variant="classic"
+                  size="sm"
+                  className="flex items-center gap-1 bg-black text-white w-48 dark:bg-white dark:text-black"
+                  disabled={!text}
+                >
+                  {loading ? 
+                  <div className='flex flex-row gap-2 items-center justify-center'>
+                    <LucideCircleDashed size={16} className="animate-spin w-full" /> 
+                    <p >
+                      Carregando...
+                    </p> 
+                  </div>
+                  :
+                  <div className='flex flex-row gap-2 items-center justify-center'>
+                    <FileAudio size={16} /> 
+                    <p>
+                      Gerar audio
+                    </p>
+                  </div>
+                  } 
+                </Button>
+              </div>
+              <div className="mt-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
                 <h3 className="text-lg font-medium mb-3">Atalhos de teclado</h3>
                 <ul className="space-y-2 text-sm">
                   <li className="flex justify-between">

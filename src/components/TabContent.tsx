@@ -12,7 +12,7 @@ import { sendImage } from '../services/geminiService';
 import { extractTextFromUrl } from '../services/extractUrlService';
 import 'react-h5-audio-player/lib/styles.css';
 import { CustomAudioPlayer } from './ui/CustomAudioPlayer';
-import { Modal } from './ui/modal';
+import { Modal } from './ui/EditModal';
 
 
 export const TabContent: React.FC = () => {

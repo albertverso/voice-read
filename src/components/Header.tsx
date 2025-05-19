@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Settings, Sun, Moon, AlertTriangle } from 'lucide-react';
+import { Menu, X, Settings, Sun, Moon } from 'lucide-react';
 import { useAccessibility } from '../contexts/AccessibilityContext';
 import { Button } from './ui/Button';
 

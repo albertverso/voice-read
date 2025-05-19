@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Button } from './ui/Button';
-import { File, Upload, FileText, AlertTriangle } from 'lucide-react';
+import { Upload, FileText, AlertTriangle } from 'lucide-react';
 import { useFileUpload } from '../hooks/useFileUpload';
 
 interface FileUploadProps {

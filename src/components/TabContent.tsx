@@ -7,12 +7,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/Tabs';
 import { gerarAudio } from "../services/ttsService";
 import AutoTextarea from './ui/AutoTextarea';
 import { Button } from './ui/Button';
-import { FileAudio, LucideCircleDashed } from 'lucide-react';
+import { LucideCircleDashed, LucidePlay } from 'lucide-react';
 import { sendImage } from '../services/geminiService';
 import { extractTextFromUrl } from '../services/extractUrlService';
 import 'react-h5-audio-player/lib/styles.css';
-import AudioPlayer from 'react-h5-audio-player';
 import { CustomAudioPlayer } from './ui/CustomAudioPlayer';
+import { Modal } from './ui/modal';
 
 
 export const TabContent: React.FC = () => {
@@ -22,13 +22,16 @@ export const TabContent: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const clearText = () => {
     setText('');
   };
   
   const handleGerarAudio = async () => {
+    setAudioUrl(null);
     setLoading(true);
+    setModalOpen(true);
     try {
       const blob = await gerarAudio(text);
       const url = URL.createObjectURL(blob);
@@ -71,7 +74,7 @@ export const TabContent: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 pb-4">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 xl:gap-8 gap-4">
         <div className="lg:col-span-2">
           <Tabs defaultValue="text" className="mb-8">
             <TabsList>
@@ -90,6 +93,11 @@ export const TabContent: React.FC = () => {
             </TabsContent>
             
             <TabsContent value="file" className="mt-4">
+              <div className='mb-3 flex items-center text-center'>
+                <label htmlFor="text-input" className="text-sm font-medium">
+                  Escaneia a imagem e transforma em texto para fazer a leitura
+                </label>
+              </div>
               <ImageUpload
                 isLoading={loadingImage}
                 error={error}
@@ -98,6 +106,11 @@ export const TabContent: React.FC = () => {
             </TabsContent>
             
             <TabsContent value="url" className="mt-4">
+              <div className='mb-3 flex items-center text-center'>
+                <label htmlFor="text-input" className="text-sm font-medium">
+                  Escaneia o site(preferencialmente sites de notícias) para fazer a leitura
+                </label>
+              </div>
               <LinkExtractor 
                 onTextExtracted={() => setText(textUrl)}
                 extractedText={textUrl}
@@ -106,7 +119,7 @@ export const TabContent: React.FC = () => {
             </TabsContent>
           </Tabs>
           
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 mb-6">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
             <h2 className="text-lg font-medium mb-4">Visualização de texto</h2>
             {text ? (
             <div className="relative">
@@ -121,8 +134,8 @@ export const TabContent: React.FC = () => {
         </div>
         
         <div>
-            <div className="sticky top-24">
-              <h2 className="text-xl font-semibold mb-4">Reprodutor de texto para fala</h2>
+            <div className="sticky top-24 lg:mt-10">
+              <h2 className="xl:text-2xl text-lg text-center w-full font-semibold mb-4">Reprodutor de texto para fala</h2>
               {/* <Player text={text} /> */}
               <div className="max-w-xl mx-auto">
                 <div
@@ -142,15 +155,15 @@ export const TabContent: React.FC = () => {
                   disabled={!text}
                 >
                   {loading ? 
-                  <div className='flex flex-row gap-2 items-center justify-center'>
-                    <LucideCircleDashed size={16} className="animate-spin w-full" /> 
+                  <div className='flex flex-rowitems-center justify-center'>
+                    <LucideCircleDashed size={20} className="animate-spin w-full mr-2" /> 
                     <p >
                       Carregando...
                     </p> 
                   </div>
                   :
                   <div className='flex flex-row gap-2 items-center justify-center'>
-                    <FileAudio size={16} /> 
+                    <LucidePlay size={20} /> 
                     <p>
                       Gerar audio
                     </p>
@@ -158,7 +171,7 @@ export const TabContent: React.FC = () => {
                   } 
                 </Button>
               </div>
-              <div className="mt-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+              <div className="mt-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
                 <h3 className="text-lg font-medium mb-3">Atalhos de teclado</h3>
                 <ul className="space-y-2 text-sm">
                   <li className="flex justify-between">
@@ -190,6 +203,12 @@ export const TabContent: React.FC = () => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        audioUrl={audioUrl || ""}
+      >
+      </Modal>
     </div>
   );
 };

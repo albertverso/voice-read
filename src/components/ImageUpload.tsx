@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Upload, AlertTriangle } from 'lucide-react';
+import { Upload, AlertTriangle, LucideCircleDashed } from 'lucide-react';
 
 interface FileUploadProps {
   isLoading: boolean;
@@ -31,20 +31,28 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
       <h3 className="text-lg font-medium mb-4">Carregar imagem</h3>
         <>
           <div
-            className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center cursor-pointer hover:border-primary dark:hover:border-primary transition-colors"
+            className={`border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center cursor-pointer hover:border-primary dark:hover:border-primary transition-colors  ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
             onClick={triggerFileInput}
             onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && triggerFileInput()}
             tabIndex={0}
             role="button"
             aria-label="Upload Imagem"
           >
-            <div className="flex flex-col items-center">
-              <Upload size={40} className="mb-3 text-gray-500 dark:text-gray-400" />
-              <p className="text-base mb-1">Arraste e solte ou clique para selecionar</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                Suporta imagens PNG e JPG (máx. 10MB)
-              </p>
-            </div>
+            {isLoading ? (
+              <div className="mt-4 text-center">
+                <LucideCircleDashed size={40} className="animate-spin w-full text-gray-500 dark:text-gray-400" /> 
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Extraindo texto da imagem aguarde...</p>
+              </div>
+              ) : (
+              <div className="flex flex-col items-center">
+                <Upload size={40} className="mb-3 text-gray-500 dark:text-gray-400" />
+                <p className="text-base mb-1">Arraste e solte ou clique para selecionar</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Suporta imagens PNG e JPG (máx. 10MB)
+                </p>
+              </div>
+              )
+            }
           </div>
 
           <input
@@ -62,13 +70,6 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
             </div>
           )}
         </>
-
-      {isLoading && (
-        <div className="mt-4 text-center">
-          <div className="inline-block animate-spin h-8 w-8 border-4 border-gray-300 dark:border-gray-700 border-t-primary rounded-full"></div>
-          <p className="mt-2">Extraindo texto da imagem...</p>
-        </div>
-      )}
     </div>
   );
 };

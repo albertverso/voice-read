@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/Button';
-import { Clipboard, Copy, FileAudio, X } from 'lucide-react';
+import { Clipboard, Copy, X } from 'lucide-react';
 
 // Tipagem das props
 interface TextInputProps {
@@ -18,7 +18,6 @@ export const TextInput: React.FC<TextInputProps> = ({
   onClear,
   placeholder = 'Insira ou cole o texto para ser lido em voz alta...',
   maxLength = 5000,
-  click = () => {},
 }) => {
   const [charCount, setCharCount] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -67,7 +66,7 @@ export const TextInput: React.FC<TextInputProps> = ({
 
   return (
     <div className="w-full">
-      <div className="mb-2 flex justify-between items-center">
+      <div className="mb-3 flex justify-between items-center">
         <label htmlFor="text-input" className="text-sm font-medium">
           Texto para fazer leitura
         </label>
@@ -89,14 +88,14 @@ export const TextInput: React.FC<TextInputProps> = ({
           value={value}
           onChange={handleTextChange}
           placeholder={placeholder}
-          className="w-full min-h-[200px] resize-none p-4 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          className="w-full min-h-[200px] resize-none p-4 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           aria-describedby="text-input-instructions"
         />
         
         {value && (
           <button
             onClick={handleClear}
-            className="absolute top-3 right-3 p-1 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            className="absolute top-3 right-5 p-1 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             aria-label="Clear text"
           >
             <X size={16} />

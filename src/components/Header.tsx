@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
           </h1>
         </div>
         
-        <nav className={`${menuOpen ? 'flex' : 'hidden'} md:flex absolute md:static top-16 left-0 right-0 flex-col md:flex-row items-center gap-4 p-4 md:p-0 bg-white dark:bg-gray-900 md:bg-transparent shadow-md md:shadow-none`}>
+        <nav className={`${menuOpen ? 'flex' : 'hidden'} text-xl font-semibold md:flex absolute md:static top-16 left-0 right-0 flex-col md:flex-row items-center gap-4 p-4 md:p-0 bg-white dark:bg-gray-900 md:bg-transparent shadow-md md:shadow-none`}>
           <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Inicio</a>
           <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Como usar</a>
           <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Sobre</a>

@@ -12,8 +12,8 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, audioUrl }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-xl p-6 relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-xl p-1 md:p-6 relative m-2">
         {/* Botão de fechar */}
         <button
           onClick={onClose}

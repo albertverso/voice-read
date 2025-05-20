@@ -116,16 +116,17 @@ export const TextInput: React.FC<TextInputProps> = ({
         >
           <Clipboard size={16} /> Colar da área de transferência
         </Button>
-        
-        <Button
-          onClick={handleCopy}
-          variant="outline"
-          size="sm"
-          className="flex items-center gap-1"
-          disabled={!value}
-        >
-          <Copy size={16} /> {copySuccess ? 'Copiado!' : 'Copiar Texto'}
-        </Button>
+        <div className={`${!value && 'cursor-not-allowed'}`}>
+          <Button
+            onClick={handleCopy}
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-1"
+            disabled={!value}
+            >
+            <Copy size={16} /> {copySuccess ? 'Copiado!' : 'Copiar Texto'}
+          </Button>   
+        </div>
       </div>
     </div>
   );

@@ -14,7 +14,6 @@ import 'react-h5-audio-player/lib/styles.css';
 import { CustomAudioPlayer } from './ui/CustomAudioPlayer';
 import { Modal } from './ui/EditModal';
 
-
 export const TabContent: React.FC = () => {
   const [text, setText] = useState('');
   const [textUrl, setTextUrl] = useState('');
@@ -137,7 +136,7 @@ export const TabContent: React.FC = () => {
             <div className="sticky top-24 lg:mt-10">
               <h2 className="xl:text-2xl text-lg text-center w-full font-semibold mb-4">Reprodutor de texto para fala</h2>
               {/* <Player text={text} /> */}
-              <div className="max-w-xl mx-auto">
+              <div className={`max-w-xl mx-auto ${!audioUrl && 'cursor-not-allowed'}`}>
                 <div
                   className={`mt-4 w-full ${!audioUrl ? 'pointer-events-none opacity-50' : ''}`}
                 >
@@ -147,31 +146,33 @@ export const TabContent: React.FC = () => {
                 </div>
               </div>
               <div className='flex items-center justify-center pt-4'>
-                <Button
-                  onClick={handleGerarAudio}
-                  variant="classic"
-                  size="sm"
-                  className="flex items-center gap-1 bg-black text-white w-48 dark:bg-white dark:text-black"
-                  disabled={!text}
-                >
-                  {loading ? 
-                  <div className='flex flex-rowitems-center justify-center'>
-                    <LucideCircleDashed size={20} className="animate-spin w-full mr-2" /> 
-                    <p >
-                      Carregando...
-                    </p> 
-                  </div>
-                  :
-                  <div className='flex flex-row gap-2 items-center justify-center'>
-                    <LucidePlay size={20} /> 
-                    <p>
-                      Gerar audio
-                    </p>
-                  </div>
-                  } 
-                </Button>
+                <div className={`${!text && 'cursor-not-allowed'}`}>
+                  <Button
+                    onClick={handleGerarAudio}
+                    variant="classic"
+                    size="sm"
+                    className={`flex items-center gap-1 bg-black text-white w-48 dark:bg-white dark:text-black ${!text && 'disabled opacity-50 cursor-not-allowed'}`}
+                    disabled={!text}
+                  >
+                    {loading ? 
+                    <div className='flex flex-rowitems-center justify-center'>
+                      <LucideCircleDashed size={20} className="animate-spin w-full mr-2" /> 
+                      <p >
+                        Carregando...
+                      </p> 
+                    </div>
+                    :
+                    <div className='flex flex-row gap-2 items-center justify-center'>
+                      <LucidePlay size={20} /> 
+                      <p>
+                        Gerar audio
+                      </p>
+                    </div>
+                    } 
+                  </Button>
+                </div>
               </div>
-              <div className="mt-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+              <div className="mt-6 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-6">
                 <h3 className="text-lg font-medium mb-3">Atalhos de teclado</h3>
                 <ul className="space-y-2 text-sm">
                   <li className="flex justify-between">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X, Settings, Sun, Moon } from 'lucide-react';
 import { useAccessibility } from '../contexts/AccessibilityContext';
 import { Button } from './ui/Button';
+import { Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -38,10 +39,10 @@ export const Header: React.FC = () => {
         </div>
         
         <nav className={`${menuOpen ? 'flex' : 'hidden'} text-xl font-semibold md:flex absolute md:static top-16 left-0 right-0 flex-col md:flex-row items-center gap-4 p-4 md:p-0 bg-white dark:bg-gray-900 md:bg-transparent shadow-md md:shadow-none`}>
-          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Inicio</a>
-          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Como usar</a>
-          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Sobre</a>
-          <a href="#" className="md:px-3 py-2 hover:text-primary" onClick={(e) => { e.preventDefault(); toggleMenu(); }}>Contato</a>
+          <Link to={"/"} className="md:px-3 py-2 hover:text-primary" > Inicio </Link>
+          <Link to={"/como-usar"} className="md:px-3 py-2 hover:text-primary" > Como usar </Link>
+          <Link to={"/sobre"} className="md:px-3 py-2 hover:text-primary" > Sobre </Link>
+          <Link to={"/contato"} className="md:px-3 py-2 hover:text-primary" > Contato </Link>
         </nav>
         
         <div className="flex items-center space-x-3">

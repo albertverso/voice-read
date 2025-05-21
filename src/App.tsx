@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { Header } from './components/Header';
-import { TabContent } from './components/TabContent';
 import { AccessibilityProvider } from './contexts/AccessibilityContext';
+import { HomePage } from './pages/HomePage';
+import { Footer } from './components/Footer';
+import { RoutesApp } from './routes/routes';
 
 function App() {
   useEffect(() => {
@@ -25,46 +27,13 @@ function App() {
 
   return (
     <AccessibilityProvider>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
-        <a 
-          href="#main" 
-          id="skip-to-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-primary text-white px-4 py-2 rounded-md"
-        >
-          Skip to content
-        </a>
+      <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
         
         <Header />
-        
-        <main id="main" className="pb-16">
-          <div className="container mx-auto px-4 py-4">
-            <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
-              Converter texto em fala
-            </h1>
-            <p className="text-xl text-center max-w-3xl mx-auto mb-2 text-gray-600 dark:text-gray-300">
-              Uma ferramenta acessível de conversão de texto em voz, projetada para pessoas com dificuldade de leitura ou deficiência visual.
-              Insira texto, carregue imagens ou extraia de URLs e ouça a leitura em voz alta..
-            </p>
-          </div>
-          
-          <TabContent />
+        <main className='flex-grow w-full'>
+          <RoutesApp />
         </main>
-        
-        <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-600 dark:text-gray-300 mb-4 md:mb-0">
-                &copy; {new Date().getFullYear()} VoiceRead - Conversão de texto em fala acessível
-              </p>
-              <nav className="flex flex-wrap gap-6">
-                <a href="#" className="text-primary hover:underline">Declaração de Acessibilidade</a>
-                <a href="#" className="text-primary hover:underline">Política de Privacidade</a>
-                <a href="#" className="text-primary hover:underline">Termos de Serviço</a>
-                <a href="#" className="text-primary hover:underline">Contato</a>
-              </nav>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </AccessibilityProvider>
   );
